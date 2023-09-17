@@ -72,9 +72,9 @@ async function performSearch(query) {
       captionType: 'data',
     });
 
-    // if (currentPage === 1) {
-    //   notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
-    // }
+    if (currentPage === 1 && totalHits > 0) {
+      notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
+    }
 
     currentQuery = query;
   } catch (error) {
