@@ -7,7 +7,7 @@ const API_KEY = '39381155-05fe4f33c27a39bf4e8d5348c';
 
 const queryParams = {
   key: API_KEY,
-  q: '', 
+  q: '', // Початково пустий рядок
   image_type: 'photo',
   orientation: 'horizontal',
   safesearch: true,
@@ -72,9 +72,9 @@ async function performSearch(query) {
       captionType: 'data',
     });
 
-    if (currentPage === 1) {
-      notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
-    }
+    // if (currentPage === 1) {
+    //   notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
+    // }
 
     currentQuery = query;
   } catch (error) {
