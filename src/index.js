@@ -14,6 +14,7 @@ const queryParams = {
   per_page: 40,
 };
 
+
 const searchForm = document.querySelector('.search-form');
 const searchInput = document.querySelector('.search');
 const loadMoreButton = document.querySelector('.load-more');
@@ -22,6 +23,13 @@ let currentPage = 1;
 let totalHits = 0;
 let currentQuery = '';
 const gallery = document.querySelector('.gallery');
+
+const loadMoreButtonClicked = localStorage.getItem('loadMoreButtonClicked') === 'true';
+
+
+if (!loadMoreButtonClicked) {
+  loadMoreButton.style.display = 'none';
+}
 
 function appendImagesToPage(images) {
   const markup = images
@@ -41,7 +49,7 @@ function appendImagesToPage(images) {
     )
     .join('');
 
-  gallery.innerHTML += markup;
+  gallery.insertAdjacentHTML('beforeend', markup);
 }
 
 async function performSearch(query) {
@@ -78,7 +86,7 @@ async function performSearch(query) {
 
     currentQuery = query;
   } catch (error) {
-    console.error('Помилка запиту до API Pixabay:', error);
+    console.error('error', error);
   } finally {
     searchButton.disabled = false;
   }
@@ -100,18 +108,21 @@ function handleFormSubmit(event) {
 
 searchForm.addEventListener('submit', handleFormSubmit);
 
-searchButton.addEventListener('click', () => {
-  const searchQuery = searchInput.value.trim();
-
-  if (searchQuery) {
-    currentPage = 1;
-    performSearch(searchQuery);
-  }
-});
-
 loadMoreButton.addEventListener('click', () => {
   currentPage++;
   performSearch(currentQuery);
+  localStorage.setItem('loadMoreButtonClicked', 'true');
 });
 
-performSearch(queryParams.q);
+
+window.addEventListener('beforeunload', () => {
+  localStorage.removeItem('loadMoreButtonClicked');
+});
+
+
+
+
+
+
+
+
