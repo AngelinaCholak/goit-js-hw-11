@@ -14,7 +14,6 @@ const queryParams = {
   per_page: 40,
 };
 
-
 const searchForm = document.querySelector('.search-form');
 const searchInput = document.querySelector('.search');
 const loadMoreButton = document.querySelector('.load-more');
@@ -118,11 +117,5 @@ loadMoreButton.addEventListener('click', () => {
 window.addEventListener('beforeunload', () => {
   localStorage.removeItem('loadMoreButtonClicked');
 });
-
-
-
-
-
-
 
 
